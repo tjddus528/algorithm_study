@@ -1,0 +1,46 @@
+# input
+
+# 6009
+c = input()
+print(c)
+
+# 6010
+n = input()
+n = int(n)
+print(n)
+
+# 6011
+f = input()
+print(float(f))
+
+# 6012
+import sys
+a = sys.stdin.readline().rstrip()
+b = sys.stdin.readline().rstrip()
+
+print(a)
+print(b)
+
+# 6013
+import sys
+a = sys.stdin.readline().rstrip()
+b = sys.stdin.readline().rstrip()
+
+tmp = a
+a = b
+b = tmp
+print(a)
+print(b)
+
+# 6014
+import sys
+f = sys.stdin.readline().rstrip()
+
+print(f)
+print(f)
+print(f)
+
+# 6015
+a, b = map(int, input().split())
+print(a)
+print(b)

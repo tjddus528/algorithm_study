@@ -1,0 +1,44 @@
+# input2
+
+# 6016
+a, b = map(str, input().split())
+tmp = a
+a = b
+b = tmp
+print(a,b)
+
+# 6017
+s = input()
+print(s,s,s)
+
+# 6018
+a, b = input().split(':')
+print(a,b,sep=':')
+
+# 6019
+y, m, d = input().split('.')
+print(d,m,y, sep='-')
+
+# 6020
+a,b = input().split('-')
+print(a,b,sep='')
+
+# 6021
+import sys
+s = sys.stdin.readline().rstrip()
+for i in s:
+  print(i)
+
+# 6022
+import sys
+s = sys.stdin.readline().rstrip()
+print(s[0:2], s[2:4], s[4:6])
+
+# 6023
+h,m,s = input().split(':')
+print(m)
+
+# 6024
+w1, w2 = input().split()
+s = w1 + w2
+print(s)

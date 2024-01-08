@@ -40,8 +40,27 @@ print(c)
 # 일반적으로 수학 식에서 거듭제곱을 표현하는 사용하는 서컴플렉스/케릿 기호(^)는 프로그래밍언어에서 다른 의미로 쓰인다.
 
 # 6039
+f1, f2 = input().split()
+c = float(f1)**float(f2)
+print(c)
+# python 언어에서는 거듭제곱을 계산하는 연산자(**)를 제공한다.
+
 # 6040
+a, b = input().split()
+c = int(a)//int(b)
+print(c)
+# python언어에서는 나눈 몫을 계산하는 연산자(//, floor division)를 제공한다.
+# a//b 와 같이 작성하면, a를 b로 나눈 몫(quotient)을 계산해준다.
+# 프로그래밍언어에 따라 이렇게 몫을 계산해주는 연산자가 없는 경우도 있다.
+
 # 6041
+a, b = input().split()
+c = int(a)%int(b)
+print(c)
+# python 언어에서는 나눈 나머지를 계산하는 연산자(%, remainder)를 제공한다.
+# a%b 와 같이 작성하면, a를 b로 나눈 나머지(remainder)를 계산해준다.
+# 나머지 연산(modulus, mod 연산)은 수학자 가우스가 생각해 낸 연산으로,
+# 어떤 수를 다른 수로 나누고 난 후 남는 나머지를 계산하는 연산이다.
 
 
 

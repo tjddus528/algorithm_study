@@ -1,0 +1,32 @@
+n, m, k = map(int, input().split())
+data = list(map(int, input().split()))
+data.sort()
+
+# 1
+result1 = 0
+cnt = 0
+for i in range(m):
+  cnt += 1
+  if cnt < k:
+    result1 += data[n - 1]
+  else:
+    result1 += data[n - 2]
+    cnt = 0
+print(result1)
+
+# 2
+result2 = 0
+first = data[n-1]
+second = data[n-2]
+while True:
+  for i in range(k):
+    if m == 0:
+      break
+    result2 += first
+    m -= 1
+  if m == 0:
+    break
+  result2 += second
+  m -= 1 
+
+print(result2)

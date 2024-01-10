@@ -1,6 +1,7 @@
 n, m, k = map(int, input().split())
 data = list(map(int, input().split()))
 data.sort()
+tmp = m
 
 # 1
 result1 = 0
@@ -28,5 +29,11 @@ while True:
     break
   result2 += second
   m -= 1 
-
 print(result2)
+
+m = tmp
+# 3 : 반복되는 수열
+first_count = int(m/(k+1)) * k + m % (k+1)  # 가장 큰 수가 더해지는 횟수 계산
+second_count = m - first_count      # 두번째 큰 수 더해지는 횟수
+result3 = first_count * first + second_count * second
+print(result3)

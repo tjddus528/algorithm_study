@@ -1,0 +1,94 @@
+# 조건/선택실행구조
+
+# 6065
+a, b, c = map(int, input().split())
+
+if(a%2==0): 
+  print(a)
+
+if(b%2==0): 
+  print(b)
+
+if(c%2==0): 
+  print(c)
+
+# 6066
+a, b, c = map(int, input().split())
+
+if(a%2==0): 
+  print("even")
+else:
+  print("odd")
+
+if(b%2==0): 
+    print("even")
+else:
+    print("odd")
+
+if(c%2==0): 
+    print("even")
+else:
+    print("odd")
+    
+# 6067
+a = int(input())
+
+if (a<0): 
+  if (a%2==0):
+    print("A")
+  else: 
+    print("B")
+else:
+  if (a%2==0):
+    print("C")
+  else:
+    print("D")
+
+# 6068
+score = int(input())
+
+if(score >= 90):
+  print("A")
+else:
+  if(score >= 70):
+    print("B")
+  else:
+    if(score >= 40):
+      print("C")
+    else:
+      print("D")  
+
+if (score >= 90):
+  print("A")
+elif (score >= 70):
+  print("B")
+elif (score >= 40):
+  print("C")
+else:
+  print("D")  
+  
+# 6069
+s = str(input())
+
+if(s=="A"):
+  print("best!!!")
+elif(s=="B"):
+  print("good!!")
+elif(s=="C"):
+  print("run!")
+elif(s=="D"):
+  print("slowly~")
+else:
+  print("what?")
+  
+# 6070
+month = int(input())
+
+if (month//3==1):
+  print("spring")
+elif (month//3==2):
+  print("summer")
+elif (month//3==3):
+  print("fall")
+else:
+  print("winter")

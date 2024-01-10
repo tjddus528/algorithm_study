@@ -1,0 +1,36 @@
+
+# List Comprehension
+arr = [[0]*10 for _ in range(10)]
+for i in range(10):
+  a = list(map(int, input().split()))
+  for j in range(10):
+    arr[i][j] = a[j]
+
+
+x ,y = 1, 1
+arr[x][y] = 9
+for i in range(1, 10):
+  for j in range(1, 10):
+    if (x+1 == 9 and y+1 == 9):
+      break
+
+    if arr[x][y+1] == 0:
+      y += 1
+      arr[x][y] = 9
+    elif arr[x][y+1] == 1:
+      if arr[x+1][y] == 0:
+        x += 1
+        arr[x][y] = 9
+      elif arr[x+1][y] == 1:
+        break
+      else:
+        arr[x+1][y] = 9
+        break
+    else:
+      arr[x][y+1] = 9
+      break
+
+for i in range(10):
+  for j in range(10):
+    print(arr[i][j], end=' ')
+  print()

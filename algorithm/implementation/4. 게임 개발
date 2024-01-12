@@ -1,0 +1,74 @@
+n, m = map(int, input().split())
+a,b,d = map(int, input().split())
+
+game_map = []
+for i in range(n):
+  game_map.append(list(map(int, input().split())))
+
+# 북, 동, 남, 서
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
+
+ground = 0
+sea = 1
+
+# 함수 1 : 왼쪽 방향으로 회전
+def turn_left():
+  global d
+  if d == 0:
+    d = 3
+  else:
+    d -= 1
+
+# 함수 2 : 이미 가본 곳에 표시
+count = 0
+def flag(x, y):
+  global count
+  count += 1
+  game_map[x][y] = 2
+
+# 함수 3 : 현재 방향에서 갈 수 있는 곳이라면 이동시킴
+def move(x, y, d):
+  global a, b
+  nx = x + dx[d]
+  ny = y + dy[d] 
+  if (game_map[nx][ny] == ground):
+    a = nx
+    b = ny
+    flag(a, b)
+    return True
+    
+# 함수 4 : 뒤로 갈 수 있는 경우 이동시킴
+def move_back(x,y,d):
+  global a, b
+  nx = x - dx[d]
+  ny = y - dy[d]
+  if (game_map[nx][ny] == ground):
+    a = nx
+    b = ny
+    return True
+  else:
+    return False
+
+move_false_count = 0
+flag(a, b)
+while move_false_count < 4:
+  # 왼쪽으로 회전
+  turn_left()
+  # 회전한 이후 정면에 가보지 않은 칸이 존재하는 경우 이동
+  if move(a, b, d):
+    move_false_count = 0
+  # 회전한 이후 정면으로 이동할 수 없는 경우
+  else:
+    move_false_count += 1
+
+  # 네 방향 모두 이동할 수 없는 경우
+  if move_false_count == 4:
+    # 뒤로 갈 수 있다면 뒤로 이동
+    if move_back(a, b, d):
+      move_false_count = 0
+    # 뒤로 갈 수 없다면 움직임을 멈춤
+    else:
+      break
+  
+print(count)

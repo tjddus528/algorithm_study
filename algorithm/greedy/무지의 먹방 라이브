@@ -58,7 +58,7 @@ def solution(food_times, k):
     sum_eat_time = 0
     prevtime = 0
 
-    # 전체 남은 시간 < 현재 음식을 먹는 시간 (먹는 시간 * 음식 개수)
+    # 전체 남은 시간 >= 현재 음식을 먹는 시간 (먹는 시간 * 음식 개수)
     while k - sum_eat_time >= (q[0][0] - prevtime) * food_count:
         now = heapq.heappop(q)
         time, number = now

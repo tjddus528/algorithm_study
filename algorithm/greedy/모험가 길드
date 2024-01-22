@@ -1,0 +1,18 @@
+n = int(input())
+data = list(map(int, input().split()))
+
+data.sort(reverse=True)
+team = 0
+count = -1
+for i in range(n):
+    # print(i, count)
+    if count > 0:
+        count -= 1
+        continue
+    else:
+        count = data[i]
+        count -= 1
+        team += 1
+
+
+print(team)

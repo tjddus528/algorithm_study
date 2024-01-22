@@ -1,0 +1,30 @@
+# https://www.acmicpc.net/problem/1439
+
+s = input()
+data = list(s)
+
+prev = data[0]
+flip = 0
+count = 0
+for d in data[1:]:
+    # 이전 문자열에서 뒤집어졌을 경우
+    if flip == 1:
+        # 뒤집힌 이전 문자열과 같으면 그대로 뒤집는다(카운팅X)
+        if d == flip_s:
+            continue
+        # 뒤집힌 문자열과 다르면 뒤집는 행동을 멈춘다(flip flag와 뒤집는 문자열 초기화)
+        else:
+            flip = 0
+            flip_s = '-1'
+
+    # 이전 문자열과 같다면 뒤집지 않는다
+    if d == prev:
+        continue
+    # 이전 문자열과 다르면 뒤집는다
+    else:
+        # 뒤집는 숫자를 1증가, flip flag 표시후, 뒤집는 문자열 저장
+        count += 1
+        flip = 1
+        flip_s = d
+
+print(count)

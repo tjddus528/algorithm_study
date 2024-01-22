@@ -1,0 +1,42 @@
+def find_next(food_times, food_size, now):
+    if sum(food_times) == 0:
+        return -1
+
+    next = (now + 1) % food_size
+    for food in range(food_size):
+        if food_times[next] != 0:
+            return next
+        else:
+            next = (next + 1) % food_size
+
+    return -1
+
+
+def solution(food_times, k):
+    answer = 0
+    total = sum(food_times)
+    if total < k:
+        return -1
+
+    now = 0
+    for i in range(k):
+        if food_times[now] != 0:
+            food_times[now] -= 1
+            next = find_next(food_times, len(food_times), now)
+            if next == -1:
+                answer = -1
+                break
+            else:
+                now = next
+                answer = next + 1
+
+    return answer
+
+
+
+
+food_times = list(map(int, input().split()))
+k = int(input())
+
+result = solution(food_times, k)
+print(result)

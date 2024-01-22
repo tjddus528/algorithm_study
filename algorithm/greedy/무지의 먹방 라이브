@@ -1,3 +1,4 @@
+# 내 풀이 -> 정확성은 통과, 효율성 전부 실패
 def find_next(food_times, food_size, now):
     if sum(food_times) == 0:
         return -1
@@ -33,7 +34,47 @@ def solution(food_times, k):
     return answer
 
 
+food_times = list(map(int, input().split()))
+k = int(input())
 
+result = solution(food_times, k)
+print(result)
+
+
+# 답안 -> 우선순위 큐 이용
+import heapq
+
+def solution(food_times, k):
+    answer = 0
+
+    if sum(food_times) <= k:
+        return -1
+
+    q = []
+    for i in range(len(food_times)):
+        heapq.heappush(q ,(food_times[i], i+ 1))
+
+    food_count = len(food_times)
+    sum_eat_time = 0
+    prevtime = 0
+
+    # 전체 남은 시간 < 현재 음식을 먹는 시간 (먹는 시간 * 음식 개수)
+    while k - sum_eat_time >= (q[0][0] - prevtime) * food_count:
+        now = heapq.heappop(q)
+        time, number = now
+
+        # 총 먹는 시간 계산
+        sum_eat_time += (time-prevtime) * food_count
+
+        # 음식 개수 -1
+        food_count -= 1
+        prevtime = time
+
+
+    result = sorted(q, key = lambda x:x[1]) # 음식 번호 기준으로 정렬
+    answer = result[(k-sum_eat_time)%food_count][1] # 남은 음식 중 몇 번째 음식인지
+
+    return answer
 
 food_times = list(map(int, input().split()))
 k = int(input())

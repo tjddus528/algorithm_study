@@ -1,0 +1,11 @@
+n, m = map(int, input().split())
+balls = list(map(int, input().split()))
+
+count = 0
+for ball1 in balls:
+    for ball2 in balls:
+        if ball1 == ball2:
+            continue
+        else:
+            count += 1
+print(count//2)

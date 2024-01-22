@@ -1,0 +1,12 @@
+s = input()
+data = []
+for i in s:
+    data.append(int(i))
+
+total = 0
+for d in data:
+    if total == 0 or d == 0:
+        total += d
+    else:
+        total *= d
+print(total)

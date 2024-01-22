@@ -10,3 +10,17 @@ for d in data:
     else:
         total *= d
 print(total)
+
+# 답안 : 1일 경우에는 더하는 게 더 커질 수 있다는 것 간과
+s = input()
+data = []
+for i in s:
+    data.append(int(i))
+
+total = 0
+for d in data:
+    if total <= 1 or d <= 1:
+        total += d
+    else:
+        total *= d
+print(total)

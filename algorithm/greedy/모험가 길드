@@ -16,3 +16,20 @@ for i in range(n):
 
 
 print(team)
+
+
+# 답안
+n = int(input())
+data = list(map(int, input().split()))
+
+data.sort()
+team = 0
+count = -1
+group = []
+for i in range(n):
+    group.append(i)    
+    if len(group) >= i:
+        team += 1
+        group = []
+
+print(team)

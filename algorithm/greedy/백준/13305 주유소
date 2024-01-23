@@ -1,0 +1,13 @@
+import sys
+
+n = int(sys.stdin.readline())
+distance = list(map(int, sys.stdin.readline().split()))
+price = list(map(int, sys.stdin.readline().split()))
+
+result = 0
+now_price = price[0]
+for i in range(n-1):
+    now_price = min(price[i], now_price)
+    result += now_price * distance[i]
+
+print(result)

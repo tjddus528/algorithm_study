@@ -1,0 +1,13 @@
+n = int(input())
+times = list(map(int, input().split()))
+
+times.sort()
+total = 0
+sum = 0
+for a in range(n):
+    for b in range(a+1):
+        sum += times[b]
+    total += sum
+    sum = 0
+
+print(total)

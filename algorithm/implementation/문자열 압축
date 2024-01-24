@@ -1,0 +1,67 @@
+# https://school.programmers.co.kr/learn/courses/30/lessons/60057
+
+# 내 풀이
+def solution(s):
+    answer = 0
+    length = len(s)
+    print(s[0:1])
+    for size in range(1, length):
+        prev = ''
+        result = ''
+        for i in range(length):
+            base = s[i:i + size]
+            if prev == base:
+                continue
+            print(base)
+
+            count = 1
+            for j in range(i + 1, length):
+                next = s[j:j + size]
+                print(next)
+                if base == next:
+                    count += 1
+                else:
+                    break
+            if count == 1:
+                result += base
+            else:
+                result += str(count) + base
+            prev = base
+            print('result =', result)
+
+    return len(result)
+
+s = input()
+print(solution(s))
+
+
+# 다른 풀이
+def compress(text, tok_len):
+    words = [text[i:i+tok_len] for i in range(0, len(text), tok_len)]
+    res = []
+    cur_word = words[0]
+    cur_cnt = 1
+    for a, b in zip(words, words[1:] + ['']):
+        if a == b:
+            cur_cnt += 1
+        else:
+            res.append([cur_word, cur_cnt])
+            cur_word = b
+            cur_cnt = 1
+    return sum(len(word) + (len(str(cnt)) if cnt > 1 else 0) for word, cnt in res)
+
+def solution(text):
+    return min(compress(text, tok_len) for tok_len in list(range(1, int(len(text)/2) + 1)) + [len(text)])
+
+a = [
+    "aabbaccc",
+    "ababcdcdababcdcd",
+    "abcabcdede",
+    "abcabcabcabcdededededede",
+    "xababcdcdababcdcd",
+
+    'aaaaaa',
+]
+
+for x in a:
+    print(solution(x))

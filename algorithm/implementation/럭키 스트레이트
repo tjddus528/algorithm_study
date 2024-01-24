@@ -1,0 +1,17 @@
+n = input()
+length = len(n)
+
+left = int(n[:length//2])
+right = int(n[length//2:])
+
+def sum_number(num, length):
+    sum = 0
+    for i in range(length//2):
+        sum += num % 10
+        num //= 10
+    return sum
+
+if sum_number(left, length) == sum_number(right, length):
+    print("LUCKY")
+else:
+    print("READY")

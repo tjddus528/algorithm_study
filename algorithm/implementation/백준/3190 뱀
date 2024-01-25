@@ -1,0 +1,80 @@
+n = int(input())
+k = int(input())    # 사과의 개수
+
+game = [[0] * (n+1) for _ in range(n+1)]    # 맵 정보
+
+# 사과 놓기
+for i in range(k):
+    x, y = map(int, input().split())
+    game[x][y] = 4
+
+# 방향 회전 정보
+l = int(input())
+moves = []
+for i in range(l):
+    s, d = input().split()
+    moves.append((int(s), d))
+
+# 상 우 하 좌
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
+
+snake_len = 1
+start = (1,1)
+
+for i in range(1, n+1):
+    print(game[i])
+
+stop = 0
+nx = 1
+ny = 1
+game[1][1] = 2
+snake = [(1,1)]
+k = 1       # 방향
+total_s = 0
+for move in moves:
+    s, d = move
+    print('k =', k)
+    for j in range(1, s+1):
+        print('j =', j)
+
+        nx = nx + dx[k]
+        ny = ny + dy[k]
+        total_s += 1
+
+        print(nx,ny)
+        # 벽을 만나거나 몸통을 만나면 종료
+        if nx > n or nx < 1 or ny > n or ny < 1 or game[nx][ny] == 2:
+            stop = 1
+            print("false", s, j, nx, ny)
+            break
+
+        else:
+            # 사과를 먹으면 길이가 + 1증가
+            if game[nx][ny] == 4:
+                game[nx][ny] = 2
+                snake.append((nx, ny))
+                snake_len += 1
+                print("Apple!")
+            if game[nx][ny] == 0:
+                game[nx][ny] = 2
+                snake.append((nx, ny))
+                rx, ry = snake.pop(0)
+                game[rx][ry] = 0
+
+    if stop == 1:
+        break
+
+    if d == 'L':
+        k -= 1
+        if k < 0: k = 3
+    elif d == 'D':
+        k += 1
+        if k > 3: k = 0
+
+for i in range(1, n+1):
+    for j in range(1, n+1):
+        print(game[i][j], end= ' ')
+    print()
+
+print(total_s)

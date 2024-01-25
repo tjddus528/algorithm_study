@@ -29,5 +29,7 @@ for i in data:
         s.append(i)
 
 s.sort()
-result = ''.join(s)+str(num)
+if num != 0:
+    s.append(str(num))
+result = ''.join(s)
 print(result)

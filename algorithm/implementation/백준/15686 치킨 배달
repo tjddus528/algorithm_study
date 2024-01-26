@@ -1,0 +1,36 @@
+# https://www.acmicpc.net/problem/15686
+
+from itertools import combinations
+n, m = map(int, input().split())
+INF = int(1e9)
+city = [[0]*(n+1) for _ in range(n+1)]
+
+# (1,1)부터 시작
+# 집, 치킨집 정보 저장
+house = []
+chicken = []
+for i in range(n):
+    data = list(map(int, input().split()))
+    for j in range(len(data)):
+        if data[j] == 1:
+            house.append([i+1, j+1])
+        elif data[j] == 2:
+            chicken.append([i+1,j+1])
+
+# 치킨 거리 구하기
+def chicken_distance(house, chicken):
+    total_chicken = 0
+    for h in house:
+        min_number = INF
+        for c in chicken:
+            distance = abs(c[0] - h[0]) + abs(c[1] - h[1])
+            min_number = min(min_number, distance)
+        total_chicken += min_number
+    return total_chicken
+
+total_chicken = INF                 # 도시의 치킨거리
+save_chicken = list(combinations(chicken, m))
+for sc in save_chicken:
+    total_chicken = min(total_chicken, chicken_distance(house, sc))
+
+print(total_chicken)

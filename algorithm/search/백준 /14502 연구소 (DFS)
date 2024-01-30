@@ -1,52 +1,57 @@
 # https://www.acmicpc.net/problem/14502
 
-from collections import deque
 import sys
 n, m = map(int, sys.stdin.readline().split())
 graph = [[] for _ in range(n+1)]
-# visited = [[False]*(m+1) for _ in range(n+1)]
-wall = []
+
+blank = []
 vir = []
 for i in range(1, n+1):
     graph[i] = [0] + list(map(int, sys.stdin.readline().split()))
     for j in range(1, m+1):
-        if graph[i][j] == 0: wall.append([i,j])
+        if graph[i][j] == 0: blank.append([i,j])
         if graph[i][j] == 2: vir.append([i,j])
 
 
 def dfs(x, y, visited):
-    # 북동남서(시계방향)
+    # 1. 시작지점 방문 처리
+    visited[x][y] = True
+    # 2. 현재 지점의 인접 노드 탐색
     dx = [-1, 0, 1, 0]
     dy = [0, 1, 0, -1]
     for d in range(4):
         nx = x + dx[d]
         ny = y + dy[d]
+        # 인접 노드 범위 확인
         if nx < 1 or nx > n or ny < 1 or ny > m:
             continue
+        # 방문했던 노드라면 건너 뛴다.
         if visited[nx][ny] == True:
             continue
+        # 벽을 만나면 건너 뛴다.
         if graph[nx][ny] == 1:
             continue
         visited[nx][ny] = True
-        visited = dfs(nx, ny, visited)
-    return visited
+        dfs(nx, ny, visited)
 
-def go():
+def virus():
+    # 2-1. 각 바이러스의 좌표에서부터 시작해 빈칸으로 퍼트린다.
+    # 방문여부 리스트는 벽3개를 세우는 각각의 경우의 수마다 새롭게 생성되어 계산되어야 한다.
+    # 그렇기 때문에 각각의 경우의 수마다 호출되는 virus함수에서 visited 리스트를 생성하여 함수 내부 변수로 활용한다.
     visited = [[False]*(m+1) for _ in range(n+1)]
-    # 2. 바이러스를 퍼뜨린다.
     for i in range(len(vir)):
-        x, y = vir[i][0], vir[i][1]
-        visited[x][y] = True
-        visited = dfs(x, y, visited)
+        dfs(vir[i][0], vir[i][1], visited)
 
-    # 3. 안전 영역의 크기를 구한다.
-    count = 0
-    for i in range(1, n + 1):
-        for j in range(1, m + 1):
-            if graph[i][j] == 0:
-                if graph[i][j] == 0 and visited[i][j] == False:
-                    count += 1
-    return count
+    # 2-2. 바이러스를 퍼트린 뒤 남은 안전 영역을 계산해 반환한다.
+    safe = 0
+    for i in range(1, n+1):
+        for j in range(1, m+1):
+            # dfs함수에서 빈칸을 만났을 때 2로 변경해준 것이 아니라 방문 처리만 해주었다.
+            # 따라서 바이러스가 퍼졌다는 것은 : 빈칸(0)이나 바이러스(2)이면서 방문한 적이 있다는 것
+            # 바이러스가 없는 안전 영역은 : 빈칸(0)인데 방문한 적이 없는 곳
+            if graph[i][j] == 0 and visited[i][j] == False:
+                safe += 1
+    return safe
 
 
 # # 1. 벽을 3개 세운다

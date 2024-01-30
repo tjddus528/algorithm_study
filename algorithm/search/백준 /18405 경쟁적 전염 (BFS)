@@ -1,0 +1,49 @@
+# https://www.acmicpc.net/problem/18405
+
+import sys
+from collections import deque
+n, k = map(int, sys.stdin.readline().split())
+graph = [[0]*(n+1)]
+vir = []
+for i in range(1, n+1):
+    graph.append([0] + list(map(int, sys.stdin.readline().split())))
+    for j in range(1, n+1):
+        if graph[i][j] > 0:
+            vir.append([graph[i][j], i, j])
+second, a, b = map(int, sys.stdin.readline().split())
+
+visited = [[False]*(n+1) for _ in range(n+1)]
+def bfs(x, y):
+    # 1. 시작노드로 초기화 & 방문처리
+    visited[x][y] = True
+    dx = [-1, 0, 1, 0]
+    dy = [0, 1, 0, -1]
+    # 인접노드 탐색(상하좌우)
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        # 범위 확인
+        if nx < 1 or nx > n or ny < 1 or ny > n:
+            continue
+        if visited[nx][ny]:
+            continue
+        # 공백이고 방문한 적 없으면 해당 바이러스 퍼트리기
+        if graph[nx][ny] == 0:
+            # 바이러스 정보 업데이트
+            graph[nx][ny] = graph[x][y]
+            vir.append([graph[nx][ny], nx, ny])
+            # 해당 노드 방문처리
+            visited[nx][ny] = True
+
+for s in range(1, second+1):
+    length = len(vir)
+    # 1. 바이러스 숫자 낮은 순으로 정렬
+    vir.sort()
+    for v in range(length):
+        # 2. 1초마다 숫자가 낮은 바이러스부터 상하좌우 퍼짐
+        bfs(vir[v][1], vir[v][2])
+    # 3. 퍼진 바이러스의 좌표들은 삭제(중복 계산 방지)
+    for r in range(length):
+        vir.remove(vir[0])
+
+print(graph[a][b])

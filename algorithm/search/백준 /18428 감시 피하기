@@ -1,0 +1,54 @@
+# https://www.acmicpc.net/problem/18428
+import sys
+n = int(sys.stdin.readline())
+arr = [['X']*(n+1)]
+blank = []
+teachers = []
+for i in range(1, n+1):
+    arr.append([0] + list(map(str, sys.stdin.readline().split())))
+    for j in range(1, n+1):
+        if arr[i][j] == 'X': blank.append([i,j])
+        if arr[i][j] == 'T': teachers.append([i,j])
+
+def teacher_view():
+    dx = [-1, 0, 1, 0]
+    dy = [0, 1, 0, -1]
+    for t in teachers:
+        for i in range(4):
+            x, y = t[0], t[1]
+            # 학생을 만나거나 벽에 부딪힐 때까지
+            while True:
+                nx = x + dx[i]
+                ny = y + dy[i]
+                if nx < 1 or nx > n or ny < 1 or ny > n:
+                    break
+                if arr[nx][ny] == 'S':
+                    return False
+                if arr[nx][ny] == 'O':
+                    break
+                x, y = nx, ny
+    return True
+
+def solution():
+    l = len(blank)
+    for i in range(l):
+        for j in range(i):
+            for k in range(j):
+                arr[blank[i][0]][blank[i][1]] = 'O'
+                arr[blank[j][0]][blank[j][1]] = 'O'
+                arr[blank[k][0]][blank[k][1]] = 'O'
+
+                # 선생님 시야 파악
+                if teacher_view():
+                    return True
+
+                arr[blank[i][0]][blank[i][1]] = 'X'
+                arr[blank[j][0]][blank[j][1]] = 'X'
+                arr[blank[k][0]][blank[k][1]] = 'X'
+    return False
+
+
+if solution():
+    print("YES")
+else:
+    print("NO")

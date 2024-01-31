@@ -30,3 +30,58 @@ for op in p:
     min_num = min(min_num, res)
 print(max_num)
 print(min_num)
+
+# DFS로 푸는 방법 고민하기
+from itertools import permutations
+import sys
+n = int(sys.stdin.readline())
+a = list(map(int, sys.stdin.readline().split()))
+data = list(map(int, sys.stdin.readline().split()))
+INF = int(1e9)
+
+def sol_max(res, index, oper_data):
+    print("solution", res, index, oper_data)
+    if index == n:
+        return res
+    if sum(oper_data) == 0:
+        return res
+    result = -INF
+    for i in range(len(oper_data)):
+        if oper_data[i] <= 0:
+            continue
+        else:
+            oper_data[i] -= 1
+            if i == 0:
+                result = max(result, sol_max(res + a[index+1], index+1, oper_data))
+            elif i == 1:
+                result = max(result, sol_max(res - a[index + 1], index + 1, oper_data))
+            elif i == 2:
+                result = max(result, sol_max(res * a[index + 1], index + 1, oper_data))
+            else:
+                result = max(result, sol_max(res // a[index+1], index+1, oper_data))
+    return result
+
+def sol_min(res, index, oper_data):
+    print("solution min", res, index, oper_data)
+    if index == n:
+        return res
+    if sum(oper_data) == 0:
+        return res
+    result = INF
+    for i in range(len(oper_data)):
+        if oper_data[i] <= 0:
+            continue
+        else:
+            oper_data[i] -= 1
+            if i == 0:
+                result = min(result, sol_max(res + a[index+1], index+1, oper_data))
+            elif i == 1:
+                result = min(result, sol_max(res - a[index + 1], index + 1, oper_data))
+            elif i == 2:
+                result = min(result, sol_max(res * a[index + 1], index + 1, oper_data))
+            else:
+                result = min(result, sol_max(res // a[index+1], index+1, oper_data))
+    return result
+
+print(sol_max(a[0], 0, data))
+print(sol_min(a[0], 0, data))

@@ -1,0 +1,67 @@
+# https://www.acmicpc.net/problem/16234
+
+import sys
+n, l, r = map(int, sys.stdin.readline().split())
+a = [[0]*(n+1)]
+for i in range(1, n+1):
+    a.append([0]+list(map(int, sys.stdin.readline().split())))
+
+def dfs(x, y, visited):
+    stack = [[x,y]]
+    b = [[x,y]]
+    visited[x][y] = True
+
+    dx = [-1, 0, 1, 0]
+    dy = [0, 1, 0, -1]
+    while stack:
+        cur_x, cur_y = stack[-1]
+        count = 0
+        for i in range(4):
+            count += 1
+            nx = cur_x + dx[i]
+            ny = cur_y + dy[i]
+            if nx < 1 or nx > n or ny < 1 or ny > n:
+                continue
+            if visited[nx][ny]:
+                continue
+            if l <= abs(a[cur_x][cur_y] - a[nx][ny]) <= r:
+                visited[nx][ny] = True
+                stack.append([nx,ny])
+                b.append([nx,ny])
+                break
+
+        if count == 4 and (stack[-1][0] != nx or stack[-1][1] != ny):
+            stack.pop()
+    return b
+
+def open():
+    # 국경선 열기(연합인 나라 좌표 정보 저장)
+    visited = [[False] * (n + 1) for _ in range(n + 1)]
+    result = []
+    for x in range(1, n+1):
+        for y in range(1, n+1):
+            if visited[x][y]:
+                continue
+            result.append(dfs(x, y, visited))
+
+
+    if len(result) >= n*n:
+        return False
+
+    for res in result:
+        sum = 0
+        for j in range(len(res)):
+            sum += a[res[j][0]][res[j][1]]
+        avg = sum // len(res)
+        for j in range(len(res)):
+            a[res[j][0]][res[j][1]] = avg
+
+    return True
+
+day = 0
+while open():
+    day += 1
+
+
+print(day)
+

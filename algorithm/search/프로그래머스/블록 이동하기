@@ -1,0 +1,76 @@
+
+# 아직 못품
+def solution(board):
+    answer = 0
+    INF = int(1e9)
+    n = len(board)
+    visited = [[INF]*n for _ in range(n)]
+    bot = [[0,0],[0,1]]
+    dfs(bot, visited, 0, board)
+    
+    print(visited[n-1][n-1])
+    return visited[n-1][n-1]
+
+def dfs(bot, visited, second, board):
+    x1, y1, x2, y2 = bot[0][0], bot[0][1], bot[1][0], bot[1][1]
+    n = len(board)
+    
+    # 움직이려는 위치 2좌표 모두 방문한 적이 있다면
+    INF = int(1e9)
+    if visited[x1][y1] < INF and visited[x2][y2] < INF:
+        return
+    
+    dx = [-1, 0, 1, 0]
+    dy = [0, 1, 0, -1]
+    rx = [1, 1, -1, -1]
+    ry = [1, -1, 1, -1]
+    
+    visited[x1][y1] = min(second, visited[x1][y1]+1)
+    visited[x2][y2] = min(second, visited[x1][y1]+1)
+    
+    for i in range(n):
+        for j in range(n):
+            if board[i][j] == 1:
+                print('X', end = ' ')
+            elif visited[i][j] >= INF:
+                print('-', end = ' ')
+            else:
+                print(visited[i][j], end = ' ')
+        print()
+    print()
+    
+    
+    if (x1 == n-1 and y1 == n-1) or (x2 == n-1 and y2 == n-1):
+        print("도착")
+        return
+    
+    
+    
+    # 상하좌우로 이동
+    for i in range(4):
+        next = [[x1 + dx[i], y1 + dy[i]],[x2 + dx[i], y2 + dy[i]]]
+        if next[0][0] < 0 or next[0][0] >= n or next[0][1] < 0 or next[0][1] >= n:
+            continue
+        if next[1][0] < 0 or next[1][0] >= n or next[1][1] < 0 or next[1][1] >= n:
+            continue
+        if board[next[0][0]][next[0][1]] == 1 or board[next[1][0]][next[1][1]] == 1:
+            continue
+
+        dfs(next, visited, second+1, board)
+    # 90도 회전
+    for i in range(2):
+        next = [[bot[0][0],bot[0][1]],[bot[1][0],bot[1][1]]]
+        for j in range(4):
+            next[i] = [bot[i][0] + rx[j], bot[i][1] + ry[j]]
+            if next[0][0] < 0 or next[0][0] >= n or next[0][1] < 0 or next[0][1] >= n:
+                continue
+            if next[1][0] < 0 or next[1][0] >= n or next[1][1] < 0 or next[1][1] >= n:
+                continue
+            if board[next[0][0]][next[0][1]] == 1 or board[next[1][0]][next[1][1]] == 1:
+                continue
+            if board[next[0][0]][next[1][1]] == 1 or board[next[1][0]][next[0][1]] == 1:
+                continue
+
+            dfs(next, visited, second+1, board)
+    return
+    

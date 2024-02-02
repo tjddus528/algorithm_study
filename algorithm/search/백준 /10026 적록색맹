@@ -1,0 +1,67 @@
+# https://www.acmicpc.net/problem/10026
+
+from collections import deque
+import sys
+n = int(sys.stdin.readline())
+graph = []
+for _ in range(n):
+    graph.append(input().rstrip())
+
+dx = [1, -1, 0, 0]
+dy = [0, 0, -1, 1]
+def bfs(i, j, visited):
+    queue = deque()
+    queue.append([i,j])
+    visited[i][j] = True
+    while queue:
+        x, y = queue.popleft()
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if nx < 0 or nx >= n or ny < 0 or ny >= n:
+                continue
+            if visited[nx][ny]:
+                continue
+            else:
+                if graph[nx][ny] == graph[x][y]:
+                    queue.append([x,y])
+                    queue.append([nx,ny])
+                    visited[nx][ny] = True
+
+def bfs_for_red_and_green(i, j, visited):
+    queue = deque()
+    queue.append([i, j])
+    visited[i][j] = True
+    while queue:
+        x, y = queue.popleft()
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if nx < 0 or nx >= n or ny < 0 or ny >= n:
+                continue
+            if visited[nx][ny]:
+                continue
+            else:
+                if (graph[nx][ny] == 'G' and graph[x][y] == 'R') or (graph[nx][ny] == 'R' and graph[x][y] == 'G') or (graph[nx][ny] == graph[x][y]):
+                    queue.append([x,y])
+                    queue.append([nx,ny])
+                    visited[nx][ny] = True
+
+count = 0
+visited = [[False]*n for _ in range(n)]
+for i in range(n):
+    for j in range(n):
+        if not visited[i][j]:
+            bfs(i, j, visited)
+            count += 1
+
+
+count2 = 0
+visited = [[False]*n for _ in range(n)]
+for i in range(n):
+    for j in range(n):
+        if not visited[i][j]:
+            bfs_for_red_and_green(i, j, visited)
+            count2 += 1
+
+print(count, count2, end= ' ')

@@ -1,0 +1,43 @@
+# https://www.acmicpc.net/problem/1244
+
+import sys
+input = sys.stdin.readline
+n = int(input())
+switch = list(map(int, input().split()))
+m = int(input())
+students = []
+for _ in range(m):
+    students.append(list(map(int, input().split())))
+def change(i):
+    switch[i] = (0 if switch[i] == 1 else 1)
+def male(target):
+    index = target -1
+    while index < n:
+        change(index)
+        index += target
+
+def female(target):
+    index = target - 1
+    change(index)
+    left = index - 1
+    right = index + 1
+    while left >= 0 and right <= n-1:
+        if switch[left] != switch[right]:
+            break
+        change(left)
+        change(right)
+        left -= 1
+        right += 1
+
+
+for s in students:
+    if s[0] == 1:
+        male(s[1])
+    if s[0] == 2:
+        female(s[1])
+
+for i in range(len(switch)):
+    if (i+1) % 20 == 0 or i == n-1:
+        print(switch[i])
+    else:
+        print(switch[i], end = ' ')

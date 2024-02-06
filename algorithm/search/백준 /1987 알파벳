@@ -29,7 +29,7 @@ while queue:
             queue.add((nx,ny,visited+board[nx][ny]))
 print(max_num)
 
-# 집합, 스택으로 풀이
+# DFS 아스키코드 이용 -> python3 시간초과 / pypy3 통과
 import sys
 input = sys.stdin.readline
 
@@ -40,26 +40,25 @@ for _ in range(r):
 
 dx = [-1, 0, 1, 0]
 dy = [0, 1, 0, -1]
-def dfs(x, y, visited):
-    result = []
+max_num = 0
+start = [0,0]
+visited = [False] * 26
+visited[ord(board[0][0])-65] = True
+def dfs(x, y,  count):
+    global max_num
+    max_num = max(max_num, count)
     for i in range(4):
         nx = x + dx[i]
         ny = y + dy[i]
         if nx < 0 or nx >= r or ny < 0 or ny >= c:
             continue
-        if not board[nx][ny] in visited:
-            result.append((nx,ny))
-    return result
+        if not visited[ord(board[nx][ny])-65]:
+            visited[ord(board[nx][ny])-65] = True
+            dfs(nx, ny, count + 1)
+            visited[ord(board[nx][ny])-65] = False
 
-max_num = 0
-queue = set([(0,0,board[0][0])])
-while queue:
-    x, y, visited = queue.pop()
-    max_num = max(max_num, len(visited))
-    for i, j, in dfs(x, y, visited):
-        queue.add((i,j,visited+board[i][j]))
+dfs(0,0, 1)
 print(max_num)
-
 
 # 알파벳 아스키코드 리스트 풀이 -> python3 시간초과 / pypy3 통과(엄~~청 느림)
 import sys

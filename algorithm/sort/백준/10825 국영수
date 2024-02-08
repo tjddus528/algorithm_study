@@ -1,39 +1,32 @@
 import sys
 input = sys.stdin.readline
-n = int(input())
+n = int(input())        # ~ 100,000
 students = []
 for _ in range(n):
-    name, korean, english, math = input().split()
-    students.append((name, int(korean), int(english), int(math)))
+    name, k, e, m = map(str, input().split())
+    students.append([name,int(k),int(e),int(m)])
 
-def quick_sort_desc(array, p):
-    if len(array) <= 1:
-        return array
-    if p > 3:
-        return array
-    pivot = array[0][p]
-    tail = array[1:]
-    print(pivot)
-    left = [x for x in tail if x[p] > pivot]
-    right = [x for x in tail if x[p] < pivot]
-    middle = [x for x in tail if x[p] == pivot]
+def quick_sort_desc(arr, p):
+    if p > 4 or len(arr) <= 1: return arr
+    p %= 4
+    pivot = arr[0]
+    tail = arr[1:]
+    left = [x for x in tail if x[p] > pivot[p]]
+    middle = [x for x in tail if x[p] == pivot[p]] + [pivot]
+    right = [x for x in tail if x[p] < pivot[p]]
+    return quick_sort_desc(left, p) + quick_sort_asc(middle,p+1) + quick_sort_desc(right, p)
 
-    return quick_sort_desc(left, p) + quick_sort_asc(middle+[pivot], p+1) + quick_sort_desc(right, p)
-
-def quick_sort_asc(array, p):
-    if len(array) <= 1:
-        return array
-    if p > 3:
-        return array
-    pivot = array[0][p]
-    tail = array[1:]
-    print(pivot)
-    left = [x for x in tail if x[p] < pivot]
-    right = [x for x in tail if x[p] > pivot]
-    middle = [x for x in tail if x[p] == pivot]
-
-    return quick_sort_desc(left, p) + quick_sort_desc(middle+[pivot], p+1) + quick_sort_desc(right, p)
+def quick_sort_asc(arr, p):
+    if p > 4 or len(arr) <= 1: return arr
+    p %= 4
+    pivot = arr[0]
+    tail = arr[1:]
+    left = [x for x in tail if x[p] < pivot[p]]
+    middle = [x for x in tail if x[p] == pivot[p]] + [pivot]
+    right = [x for x in tail if x[p] > pivot[p]]
+    return quick_sort_asc(left, p) + quick_sort_desc(middle, p + 1) + quick_sort_asc(right, p)
 
 result = quick_sort_desc(students, 1)
 
-print(result)
+for s in result:
+    print(s[0])

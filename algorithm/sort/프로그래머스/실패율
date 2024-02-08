@@ -1,5 +1,31 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/42889
 
+# 테스트 22 〉	통과 (23.40ms, 18MB)
+def solution(N, stages):
+    stop_playes = [0]*(N+1) # 스테이지에 도달했으나 아직 클리어하지 못한 플레이어의 수
+    success_playes = [0]*(N+1) # 스테이지에 도달한 플레이어 수
+    fail = []
+
+    # 1) 스테이지에 도달했으나 아직 클리어하지 못한 플레이어의 수
+    for s in stages:
+        stop_playes[s-1] += 1
+        
+    for i in range(N):
+        # 2) 스테이지에 도달한 플레이어 수
+        success_playes[i] = sum(stop_playes[i:])
+        # 3) 실패율 계산, 스테이지 번호와 함께 저장
+        if success_playes[i] == 0:
+            fail.append((0, i+1))
+        else:
+            fail.append((stop_playes[i] / success_playes[i], i+1))
+
+    # 4) 실패율을 기준으로 정렬한뒤, 스테이지 번호만 뽑아내 리스트로 생성
+    answer = [item[1] for item in sorted(fail, key = lambda x : x[0], reverse = True)]
+    
+    return answer
+
+
+# 테스트 22 〉	통과 (50.10ms, 18.1MB)
 def solution(N, stages):
     stop_playes = [0]*(N+1) # 스테이지에 도달했으나 아직 클리어하지 못한 플레이어의 수
     success_playes = [0]*(N+1) # 스테이지에 도달한 플레이어 수

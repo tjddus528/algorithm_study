@@ -31,7 +31,7 @@ result = quick_sort_desc(students, 1)
 for s in result:
     print(s[0])
 
-# 엄청 간단한 방법이...? 그래두 내 코드가 더 빠르..ㅁ..
+# 엄청 간단한 방법이...? 
 import sys
 input = sys.stdin.readline
 n = int(input())        # ~ 100,000

@@ -1,0 +1,61 @@
+import sys
+input = sys.stdin.readline
+n, x = map(int, input().rstrip().split())
+arr = list(map(int, input().split()))
+
+arr.sort()
+
+count = 0
+def binary_search(start, end, target):
+    global count
+    if start >= end:
+        return
+
+    mid = (start+end)//2
+
+    if arr[mid] == target:
+        count += 1
+        now = mid - 1
+        while now >= start and arr[now] == target:
+            count += 1
+            now -= 1
+        now = mid + 1
+        while now <= end and arr[now] == target:
+            count += 1
+            now += 1
+    elif arr[mid] < target:
+        binary_search(mid+1, end, target)
+    else:
+        binary_search(start, mid-1, target)
+
+binary_search(0, len(arr), x)
+if count == 0:
+    print(-1)
+else:
+    print(count)
+
+def binary_search2(start, end, target):
+    count2 = 0
+    while start < end:
+        mid = (start+end)//2
+        if arr[mid] == target:
+            count2 += 1
+            now = mid - 1
+            while now >= start and arr[now] == target:
+                count2 += 1
+                now -= 1
+            now = mid + 1
+            while now <= end and arr[now] == target:
+                count2 += 1
+                now += 1
+        elif arr[mid] < target:
+            start = mid + 1
+        else:
+            end = mid - 1
+    return count2
+
+result = binary_search2(0, len(arr), x)
+if result == 0:
+    print(-1)
+else:
+    print(result)

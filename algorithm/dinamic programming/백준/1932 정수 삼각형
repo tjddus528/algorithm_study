@@ -1,0 +1,17 @@
+# https://www.acmicpc.net/problem/1932
+n = int(input())
+triangle = [list(map(int, input().split())) for i in range(n)]
+dp = [[0] * (i+1) for i in range(n)]
+
+dy = [0, 1]
+dp[0][0] = triangle[0][0]
+for x in range(n-1):
+    for y in range(x+1):
+        for j in range(2):
+            nx = x + 1
+            ny = y + dy[j]
+            if nx < 0 or nx > n-1 or ny < 0 or ny > nx:
+                continue
+            dp[nx][ny] = max(triangle[nx][ny] + dp[x][y], dp[nx][ny])
+
+print(max(dp[n-1]))

@@ -1,0 +1,26 @@
+t = int(input())
+for test in range(t):
+    n, m = map(int, input().split())
+    arr_list = list(map(int, input().split()))
+    arr = [[arr_list[i*m+j] for j in range(m)] for i in range(n)]
+    dp = [[0 for j in range(m)] for i in range(n)]
+
+    for i in range(n):
+        dp[i][0] = arr[i][0]
+
+    dx = [1, 0, -1]
+    dy = [1, 1, 1]
+    for k in range(m-1):
+        for i in range(n):
+            x, y = i, k
+            for j in range(3):
+                nx = x + dx[j]
+                ny = y + dy[j]
+                if nx < 0 or nx > n-1 or ny < 0 or ny > m-1:
+                    continue
+                dp[nx][ny] = max(dp[x][y] + arr[nx][ny], dp[nx][ny])
+
+    max_dp = 0
+    for i in range(n):
+        max_dp = max(max_dp, dp[i][m-1])
+    print(max_dp)

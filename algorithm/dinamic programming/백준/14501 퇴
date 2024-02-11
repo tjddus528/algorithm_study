@@ -1,0 +1,39 @@
+# https://www.acmicpc.net/problem/14501#
+
+# 보텀 업 방식
+n = int(input())
+arr = []
+for _ in range(n):
+    t, p = map(int, input().split())
+    arr.append([t,p])
+
+d = [0] * (n+1)
+
+for i in range(n):
+    for j in range(i + arr[i][0], n+1):
+        d[j] = max(d[j], d[i]+arr[i][1])
+
+print(d[n])
+
+
+
+# 탑 다운 방식
+n = int(input())
+arr = []
+for _ in range(n):
+    t, p = map(int, input().split())
+    arr.append([t,p])
+
+d = [0] * (n+1)
+
+max_value = 0
+for i in range(n-1, -1, -1):        # 0 ~ (n-1) 까지의 값이 있으므로 => n-1 , n-2, ... , 2, 1, 0 까지
+    time = arr[i][0] + i
+    # d[i] = i번째 날부터 마지막 날까지 낼 수 있는 최대 이익
+    if time > n:
+        d[i] = max_value
+        continue
+    d[i] = max(max_value, arr[i][1] + d[time])
+    max_value = d[i]
+
+print(max_value)

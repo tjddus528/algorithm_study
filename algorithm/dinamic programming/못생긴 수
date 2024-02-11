@@ -1,33 +1,17 @@
-# n = int(input())
-# arr = list(map(int, input().split()))
-#
-# count = 0
-# prev = arr[0]
-# for i in range(1, n):
-#     if prev < arr[i]:
-#         count += 1
-#     prev = arr[i]
-#
-# print(count)
 
-import heapq
 n = int(input())
 d = [1]
 prime = [2,3,5]
-print(d)
-
 
 def ugly_prime():
     for j in d:
         for p in prime:
             new = j * p
             if not new in d:
-                print(new)
                 d.append(new)
                 if len(d) > 3*n:
                     return
 
 ugly_prime()
 d.sort()
-print(d)
 print(d[n-1])

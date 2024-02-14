@@ -1,0 +1,8 @@
+# 와..
+s=input().replace('XXXX','AAAA').replace('XX','BB')
+
+if 'X' in s:
+    print(-1)
+    
+else:
+    print(s)

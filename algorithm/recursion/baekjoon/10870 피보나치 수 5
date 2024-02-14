@@ -1,0 +1,26 @@
+import sys
+input = sys.stdin.readline
+
+# 단순 재귀 -> 느림!
+n = int(input())
+def fivo(i):
+    if i == 0: return 0
+    if i == 1: return 1
+    return fivo(i-1) + fivo(i-2)
+
+print(fivo(n))
+
+# DP 사용
+d = [0] * (n+1)
+def fivonacci(x):
+  if x == 1 or x == 2:
+      return 1
+
+  if d[x] != 0:
+    return d[x]
+
+  d[x] = fivonacci(x-1)+ fivonacci(x-2)
+
+  return d[x]
+
+print(fivonacci(n))

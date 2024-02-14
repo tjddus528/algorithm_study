@@ -1,0 +1,22 @@
+import sys
+input = sys.stdin.readline
+n, s = map(int, input().split())
+arr = list(map(int, input().split()))
+
+count = 0
+def dfs(result, i, st):
+    global count
+    if result == s:
+        count += 1
+
+    if i > n-1:
+        return
+
+    for index in range(i+1, len(arr)):
+        next =  result + arr[index]
+        dfs(next, index, st+str(arr[index]))
+
+for i in range(len(arr)):
+    dfs(arr[i], i, str(arr[i]))
+
+print(count)

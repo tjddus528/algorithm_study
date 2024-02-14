@@ -1,0 +1,31 @@
+n = int(input())
+tree = []
+for _ in range(n):
+    p, l, r = map(str, input().split())
+    tree.append([ord(p)-65, ord(l)-65,ord(r)-65])
+tree.sort(key = lambda x: x[0])
+
+def preorder_tree(root):
+    print(chr(root[0]+65), end='')
+    if root[1] != ord('.')-65:
+        preorder_tree(tree[root[1]])
+    if root[2] != ord('.')-65:
+        preorder_tree(tree[root[2]])
+def inorder_tree(root):
+    if root[1] != ord('.') - 65:
+        inorder_tree(tree[root[1]])
+    print(chr(root[0]+65), end='')
+    if root[2] != ord('.')-65:
+        inorder_tree(tree[root[2]])
+def postorder_tree(root):
+    if root[1] != ord('.') - 65:
+        postorder_tree(tree[root[1]])
+    if root[2] != ord('.')-65:
+        postorder_tree(tree[root[2]])
+    print(chr(root[0] + 65), end='')
+
+preorder_tree(tree[0])
+print()
+inorder_tree(tree[0])
+print()
+postorder_tree(tree[0])

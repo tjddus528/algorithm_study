@@ -1,0 +1,8 @@
+import sys
+input = sys.stdin.readline
+n = int(input())
+numbers = list(map(int, input().split()))
+arr = []
+for i in range(n):
+    arr.insert(numbers[i], i+1)
+print(*arr[::-1])

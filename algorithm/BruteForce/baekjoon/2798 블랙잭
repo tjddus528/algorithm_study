@@ -1,0 +1,14 @@
+import sys
+input = sys.stdin.readline
+n, m = map(int, input().split())
+cards = list(map(int, input().split()))
+
+maxi = 0
+for i in range(n):
+    for j in range(i):
+        for k in range(j):
+            rs = cards[i] + cards[j] + cards[k]
+            if rs > m: continue
+            maxi = max(rs, maxi)
+
+print(maxi)

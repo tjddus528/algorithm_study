@@ -1,0 +1,33 @@
+n = int(input())
+orders = []
+for _ in range(n):
+    orders.append(input())
+
+stack = []
+for i in range(len(orders)):
+    if len(orders[i]) >= 4 and orders[i][:4] == "push":
+        od, x = orders[i].split()
+        stack.append(x)
+    
+    elif orders[i] == "pop":
+        if not stack:
+            print(-1)
+        else:
+            n = stack.pop()
+            print(n)
+    
+    elif orders[i] == "size":
+        print(len(stack))
+    
+    elif orders[i] == "empty":
+        if not stack:
+            print(1)
+        else:
+            print(0)
+    
+    elif orders[i] == "top":
+        if not stack:
+            print(-1)
+        else:
+            print(stack[-1])
+

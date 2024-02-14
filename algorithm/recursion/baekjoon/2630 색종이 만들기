@@ -1,0 +1,59 @@
+n = int(input())
+paper = []
+for _ in range(n):
+    paper.append(list(map(int,input().split())))
+
+def print_paper(a, b, c, d):
+    for i in range(a, b+1):
+        for j in range(c, d+1):
+            print(paper[i][j], end =' ')
+        print()
+    print()
+def what_is_color(a,b,c,d):
+    size = abs(b-a) + 1
+    all = 0
+    for i in range(a, b+1):
+        all += sum(paper[i][c:d+1])
+
+    if all == 0:
+        return 0
+    elif all == size*size:
+        return 1
+    else:
+        return -1
+
+def divide4(a, b, c, d):
+    mid_x = (b+1 - a) // 2
+    mid_y = (d+1 - c) // 2
+    arr = [[a, a + mid_x - 1, c, c + mid_y - 1], [a, a + mid_x - 1, c + mid_y, d], [a + mid_x, b, c, c + mid_y - 1], [a + mid_x, b, c + mid_y, d]]
+    return arr
+
+white = 0
+blue = 0
+def do(a, b, c, d):
+    global white
+    global blue
+
+    size = abs(b+1-a)
+    if size == 1:
+        if paper[a][c] == 0: white += 1
+        else: blue += 1
+        return
+
+    # 전체 색상 확인
+    color = what_is_color(a, b, c, d)
+    if color == 0:
+        white += 1
+        return
+    elif color == 1:
+        blue += 1
+        return
+    else:
+        arr = divide4(a, b, c, d)
+        for i in arr:
+            do(i[0],i[1],i[2],i[3])
+
+
+do(0,n-1,0,n-1)
+print(white)
+print(blue)

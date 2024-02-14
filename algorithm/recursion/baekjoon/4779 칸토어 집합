@@ -1,0 +1,14 @@
+def cantor(st):
+    if len(st) == 1:
+        return "-"
+    cnt = len(st)//3
+    return cantor("-"*cnt) + " " * cnt + cantor("-"*cnt)
+
+while True:
+    try:
+        n = int(input())
+        st = "-" * pow(3, n)
+        print(cantor(st))
+    except EOFError:
+        break
+

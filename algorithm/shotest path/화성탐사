@@ -1,0 +1,32 @@
+# ACM-ICPC
+
+import heapq
+import sys
+input = sys.stdin.readline
+INF = int(1e9)
+t = int(input())
+for _ in range(t):
+    n = int(input())
+    graph = [list(map(int, input().split())) for _ in range(n)]
+    distance = [[INF]*(n) for _ in range(n)]
+
+    dx = [1, -1, 0, 0]
+    dy = [0, 0, -1, 1]
+    queue = []
+    heapq.heappush(queue, [graph[0][0], 0,0])
+    distance[0][0] = graph[0][0]
+    while queue:
+        dist, x, y = heapq.heappop(queue)
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if nx < 0 or nx > n-1 or ny < 0 or ny > n-1:
+                continue
+            if distance[nx][ny] < dist:
+                continue
+            cost = distance[x][y] + graph[nx][ny]
+            if cost < distance[nx][ny]:
+                distance[nx][ny] = cost
+                heapq.heappush(queue, [cost,nx,ny])
+
+    print(distance[n-1][n-1])

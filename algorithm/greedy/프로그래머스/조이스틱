@@ -1,0 +1,22 @@
+# https://school.programmers.co.kr/learn/courses/30/lessons/42860
+def solution(name):
+    
+    gap = []
+    for i in range(len(name)):
+        g = ord(name[i]) - ord('A')
+        gap.append(min(g, abs(26-g)))
+    
+    min_step = len(name) - 1
+    for i, n in enumerate(name):
+        
+        next = i + 1
+        while next < len(name) and name[next] == 'A':
+            next += 1
+        
+        right_back = 2 * i + (len(name) - next)
+        left_back = 2 * (len(name) - next) + i 
+        min_step = min(min_step, right_back, left_back)
+        
+    answer = sum(gap) + min_step
+        
+    return answer

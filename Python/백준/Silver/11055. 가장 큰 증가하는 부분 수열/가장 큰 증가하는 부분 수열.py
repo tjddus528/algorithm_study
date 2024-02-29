@@ -2,15 +2,15 @@ import sys
 input = sys.stdin.readline
 
 n = int(input())
-arr = list(map(int, input().split()))
+numbers = list(map(int, input().split()))
+dp = [0] * n
 
-d = [0]*n
-d[0] = arr[0]
+dp[0] = numbers[0]
 for i in range(1, n):
     for j in range(i):
-        if arr[j] < arr[i]:
-            d[i] = max(d[i], d[j] + arr[i])
+        if numbers[j] < numbers[i]:
+            dp[i] = max(dp[i], dp[j] + numbers[i])
         else:
-            d[i] = max(d[i], arr[i])
+            dp[i] = max(dp[i], numbers[i])
 
-print(max(d))
+print(max(dp))

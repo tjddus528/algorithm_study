@@ -11,7 +11,7 @@ for coin in coins:
     if coin <= k:
         d[coin] = 1
 
-for i in range(1, k+1):
+for i in range(coins[0]+1, k+1):
     for coin in coins:
         if i > coin:
             d[i] = min(d[i-coin]+1, d[i])

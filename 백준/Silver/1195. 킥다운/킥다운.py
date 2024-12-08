@@ -1,6 +1,5 @@
 a = list(int(i) for i in input())
 b = list(int(i) for i in input())
-bigger = max(len(a), len(b))
 
 def howlong(ak, bk):
     if ak == 0:

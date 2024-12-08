@@ -8,14 +8,8 @@ def howlong(ak, bk):
         return ak + max(len(b), len(a) - ak)
 
 def match(ak, bk):
-    if bk == 0:
-        aa = a[ak:ak+min(len(a)-ak, len(b))]
-        bb = b[:len(aa)]
-    if ak == 0:
-        bb = b[bk:bk+min(len(b)-bk, len(a))]
-        aa = a[:len(bb)]
     new = []
-    for c in zip(aa, bb):
+    for c in zip(a[ak:], b[bk:]):
         if sum(c) >= 4:
             return False
         else:

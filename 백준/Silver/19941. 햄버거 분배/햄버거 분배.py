@@ -10,3 +10,19 @@ for i in range(n):
                 cnt += 1
                 break
 print(cnt)
+
+
+
+# 순차적으로 사람을 만날 때마다 햄버거를 먹을 수 있으면 먹이기
+# 가장 앞쪽 햄버거부터 먹을 수 있는 햄버거 먹기
+# 먹은 햄버거 자리에 표시
+
+# ex)
+# 12 1
+# HPHPHPHHPPHP
+# 12 2
+# HPHPHPHHPPHP
+# 12 5
+# PPHHHPHPHHPP
+# 6 2
+# PHHHPP

@@ -12,11 +12,9 @@ for _ in range(m):
     def dfs(start, target, dist):
         visited[start] = 1
         if start == target:
-            result.append(dist)
-            return
+            print(dist)
         for v, w in graph[start]:
             if visited[v]: continue
             dfs(v, target, dist + w)
 
     dfs(u, v, 0)
-    print(min(result))

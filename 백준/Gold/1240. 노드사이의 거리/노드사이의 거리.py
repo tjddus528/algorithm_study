@@ -13,6 +13,7 @@ for _ in range(m):
         visited[start] = 1
         if start == target:
             print(dist)
+            return 
         for v, w in graph[start]:
             if visited[v]: continue
             dfs(v, target, dist + w)

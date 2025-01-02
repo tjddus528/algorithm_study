@@ -1,5 +1,7 @@
+import sys
+input = sys.stdin.readline
 n, m = map(int, input().split())
-data = list(list(int(i) for i in input()) for _ in range(n))
+data = list(list(int(i) for i in input().strip()) for _ in range(n))
 square = [[0]*m for _ in range(n)]
 
 for i in range(n):

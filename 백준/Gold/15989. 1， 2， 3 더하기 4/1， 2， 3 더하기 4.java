@@ -13,9 +13,12 @@ public class Main {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     int t = Integer.parseInt(br.readLine());
 
+    StringBuilder sb = new StringBuilder();
+
     for (int i=0;i<t;i++) {
       int n = Integer.parseInt(br.readLine());
-      System.out.println(dp[n]);
+      sb.append(dp[n]).append("\n");
     }
+    System.out.println(sb);
   }
 }

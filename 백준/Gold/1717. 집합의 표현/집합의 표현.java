@@ -37,7 +37,7 @@ public class Main {
   static void union(int a, int b) {
     a = find(a);
     b = find(b);
-    parent[Math.max(a, b)] = Math.min(a, b);
+    parent[b] = a;
   }
   // find(k) : 대표 노드 찾기
   static int find(int k) {

@@ -1,9 +1,12 @@
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 class Solution {
     public int solution(int[] nums) {
-        Set<Integer> set = new HashSet<>();
-        for(int num: nums) set.add(num);
-        return (nums.length/2 > set.size()) ? set.size() : nums.length/2;
+        return Arrays.stream(nums)
+                .boxed()
+                .collect(Collectors.collectingAndThen(Collectors.toSet(),
+                phonekemons -> Integer.min(phonekemons.size(), nums.length / 2)));
     }
 }
